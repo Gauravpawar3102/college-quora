@@ -1,7 +1,7 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer } from 'apollo-server';
 import { PrismaClient, Prisma } from '@prisma/client';
 import { typeDefs } from './schema';
-import { Query } from './resolvers/index';
+import { Query, Mutation } from './resolvers/index';
 
 const prisma = new PrismaClient();
 
@@ -17,6 +17,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers: {
     Query,
+    Mutation,
   },
   context: {
     prisma,

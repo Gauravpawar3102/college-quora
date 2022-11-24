@@ -13,15 +13,26 @@ interface PostPayLoadType {
 export const Mutation = {
   postCreate: async (
     _: any,
-    { title, content }: any,
+    { title, content }: PostCreateArgs,
     { prisma }: Context
   ): Promise<PostPayLoadType> => {
+    if (!title || !content) {
+      return {
+        userErrors: [
+          {
+            message: 'You must provide a title and content to create a post',
+          },
+        ],
+        post: null,
+      };
+    }
+
+    const post = await prisma.post.create({
+      data: { title, content, authorId: 1 },
+    });
     return {
       userErrors: [],
-      post: null,
+      post,
     };
-    // const post = await prisma.post.create({
-    //   data: { title, content, authorId: 1 },
-    // });
   },
 };
