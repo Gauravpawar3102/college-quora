@@ -7,6 +7,7 @@ const typeDefs = gql`
 
   type Mutation {
     postCreate(title: String!, content: String!): PostPayLoad!
+    postUpdate(postId: ID!, post: PostInput!): PostPayLoad!
   }
 
   type Post {
@@ -39,6 +40,10 @@ const typeDefs = gql`
   type PostPayLoad {
     userErrors: [UserErrors!]!
     post: Post
+  }
+  input PostInput {
+    title: String
+    content: String
   }
 `;
 
